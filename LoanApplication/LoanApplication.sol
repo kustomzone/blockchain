@@ -21,16 +21,20 @@ contract LoanApplication      // The contract definition. A constructor of the s
     uint score; // Red < 50, Yellow (Manual process) < 75, Green >= 75
     
     // Status
-    bool hasJob;
     bool hasGreenScore;
     bool isManualProcessNeeded; // If false, let the smart contract handle everything
     
+    // Flags
+    uint green = 75;
+    uint yellow = 50;
     
-    function LoanApplication() public   // The constructor. It accepts a string input and saves it to the contract's "greeting" variable.
+    event GetCreditScore(string ssn);
+    event ScoreFinished(uint score);
+    
+    function LoanApplication() public   // The constructor. 
     {
         lenderAddress = msg.sender;
         score = 0; // no score yet
-        hasJob = false;
         hasGreenScore = false;
         isManualProcessNeeded = false;
     }
@@ -49,6 +53,33 @@ contract LoanApplication      // The contract definition. A constructor of the s
         loanAmount = _loanAmount;
         loanMaturity = _loanMaturity;
         interest = _interest;
+        GetCreditScore(ssn);
+    }
+    
+
+    function setScore(uint _score)
+    {
+        score = _score;
+        
+        if(score >= green)
+        {
+            hasGreenScore = true;
+            isManualProcessNeeded = false;
+        } else if (score >= yellow)
+        {
+            hasGreenScore = false;
+            isManualProcessNeeded = true;
+        } else
+        {
+            hasGreenScore = false;
+            isManualProcessNeeded = false;
+        }
+        ScoreFinished(_score);
+    }
+    
+    function getScore() constant returns (uint)
+    {
+        return score;
     }
     
      /**********
