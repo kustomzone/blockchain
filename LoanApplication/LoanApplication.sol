@@ -74,7 +74,7 @@ contract LoanApplication      // The contract definition. A constructor of the s
             hasGreenScore = false;
             isManualProcessNeeded = false;
         }
-        ScoreFinished(_score);
+        ScoreFinished(score);
     }
     
     function getScore() constant returns (uint)
