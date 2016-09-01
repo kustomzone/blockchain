@@ -1,0 +1,23 @@
+.counters {
+  text-align: center;
+  background-color: #f5f5f5;
+}
+
+.counter {
+  padding: 2rem;
+  text-align: center;
+  display: inline-block;
+  width: 30%;
+  h2 {
+    text-transform: uppercase;
+  }
+  .number {
+    font-size: 7rem;
+    color: #909090;
+    font-weight: bold;
+    transition: color 0.2s ease-in-out;
+    &.done {
+      color: #2b97d8;
+    }
+  }
+}
