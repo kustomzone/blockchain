@@ -77,7 +77,7 @@ contract LoanApplication      // The contract definition. A constructor of the s
         ScoreFinished(score);
     }
     
-    function getScore() constant returns (uint)
+    function getScore() constant returns (uint score)
     {
         return score;
     }

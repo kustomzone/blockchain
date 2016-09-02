@@ -1,0 +1,34 @@
+jobs:
+
+- name: contract
+  job:
+    deploy:
+      contract: LoanApplication.sol
+      wait: true
+
+- name: setPersonalia
+  job:
+    call:
+      destination: $contract
+      data: setPersonalia "" "" ""
+      wait: true
+
+- name: setLoan
+  job:
+    call:
+      destination: $contract
+      data: setLoan 0 0 0
+      wait: true
+
+- name: setScore
+  job:
+    call:
+      destination: $contract
+      data: setScore 0
+      wait: true
+
+- name: queryScore
+  job:
+    query-contract:
+      destination: $contract
+      data: getScore
