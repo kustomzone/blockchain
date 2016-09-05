@@ -1,0 +1,37 @@
+{
+  "port": 8080,
+  "routes": [
+    {
+      "path": "/a"
+      , "type": "GET"
+      , "response": {
+        "field_1": "f1 get a ok"
+        , "field_2": "f2 get a ok"
+      }
+    },
+    {
+      "path": "/a"
+      , "type": "POST"
+      , "response": {
+        "field_1": "f1 post a ok"
+        , "field_2": "f2 post a ok"
+      }
+    },
+    {
+      "path": "/a"
+      , "type": "PUT"
+      , "response": {
+        "field_1": "f1 put a ok"
+        , "field_2": "f2 put a ok"
+      }
+    },
+    {
+      "path": "/a"
+      , "type": "DELETE"
+      , "response": {
+        "field_1": "f1 delete a ok"
+        , "field_2": "f2 delete a ok"
+      }
+    }
+  ]
+}
