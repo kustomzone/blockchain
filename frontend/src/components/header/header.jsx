@@ -1,4 +1,5 @@
 const React = require('react');
+import {Link} from 'react-router';
 import 'design/components/header';
 
 export default class Header extends React.Component {
@@ -10,12 +11,12 @@ export default class Header extends React.Component {
           <div className="topbar">
             <span>Mr. John Terry</span>
           </div>
-          <h1>Capbank</h1>
+          <h1><Link to={''}>Capbank</Link></h1>
           <ul className="menu">
-            <li><a href="">Borrow</a></li>
-            <li><a href="">Bank</a></li>
-            <li><a href="">Save and Invest</a></li>
-            <li><a href="">Mortgage</a></li>
+            <li><Link to={'borrow'}>Borrow</Link></li>
+            <li><Link to={'bank'}>Bank</Link></li>
+            <li><Link to={'save'}>Save and Invest</Link></li>
+            <li><Link to={'mortgage'}>Mortgage</Link></li>
           </ul>
         </div>
       </header>

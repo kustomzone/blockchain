@@ -3,11 +3,34 @@ import 'index.html';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
-import Counter from './components/Counter';
+// import Counter from './components/Counter';
 import Header from './components/header/header';
+import Frontpage from './components/frontpage/frontpage';
+import Borrow from './components/borrow/borrow';
+import Footer from './components/footer/footer';
 
-ReactDOM.render(<Header />, document.getElementById('container'));
+class App extends React.Component {
+  render() {
+    return(
+      <div>
+        <Header />
+        <div className="main">
+          {this.props.children}
+        </div>
+        <Footer />
+      </div>
+    )
+  }
+}
 
-ReactDOM.render(<Counter number={12433000} title="Totalt" />, document.getElementById('counter1'));
-ReactDOM.render(<Counter number={103} title="solgte" />, document.getElementById('counter2'));
+
+ReactDOM.render((
+  <Router history={hashHistory}>
+		<Route path="/" component={App}>
+      <IndexRoute component={Frontpage} />
+      <Route path="borrow" component={Borrow} />
+    </Route>
+  </Router>
+), document.getElementById('container'));
