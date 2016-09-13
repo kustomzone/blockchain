@@ -1,0 +1,8 @@
+version: '2'
+services:
+  user:
+    build: ./user-mock
+    ports:
+     - "8081:3000"
+    volumes:
+     - ./user-mock/config:/config

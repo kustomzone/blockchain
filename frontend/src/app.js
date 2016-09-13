@@ -8,7 +8,7 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 // import Counter from './components/Counter';
 import Header from './components/header/header';
 import Frontpage from './components/frontpage/frontpage';
-import Borrow from './components/borrow/borrow';
+import User from './components/user/user';
 import Footer from './components/footer/footer';
 
 class App extends React.Component {
@@ -30,7 +30,7 @@ ReactDOM.render((
   <Router history={hashHistory}>
 		<Route path="/" component={App}>
       <IndexRoute component={Frontpage} />
-      <Route path="borrow" component={Borrow} />
+      <Route path="user" component={User} />
     </Route>
   </Router>
 ), document.getElementById('container'));

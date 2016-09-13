@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "first_name": "Ola",
+      "last_name": "Normann",
+      "fnr": "12345612345"
+    },
+    {
+      "id": 2,
+      "first_name": "Kari",
+      "last_name": "Normann",
+      "fnr": "65432154321"
+    }
+  ]
+}
