@@ -1,0 +1,16 @@
+@import "../variables/colors";
+
+.loading {
+  width: 100%;
+  text-align: center;
+  margin-top: 4rem;
+  transition: opacity 1s ease-in-out;
+  opacity: 1;
+  &.hide {
+    opacity: 0;
+  }
+  .fa {
+    color: $main-color;
+    font-size: 5rem;
+  }
+}
