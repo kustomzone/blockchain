@@ -40,48 +40,40 @@ contract LoanApplication      // The contract definition. A constructor of the s
     }
 
 
-    function setPersonalia(string _ssn, string _firstName, string _lastName)       
+    function setPersonalia(string s, string f, string l)       
     {
-        ssn = _ssn;
-        firstName = _firstName;
-        lastName = _lastName;
+        ssn = s;
+        firstName = f;
+        lastName = l;
     }
     
     
-    function setLoan(uint _loanAmount, uint _loanMaturity, uint _interest) 
+    function setLoan(uint la, uint lm, uint i) 
     {
-        loanAmount = _loanAmount;
-        loanMaturity = _loanMaturity;
-        interest = _interest;
+        loanAmount = la;
+        loanMaturity = lm;
+        interest = i;
         GetCreditScore(ssn);
     }
     
 
-    function setScore(uint _score)
+    function setScore(uint s)
     {
-        score = _score;
-        
-        if(score >= green)
-        {
-            hasGreenScore = true;
-            isManualProcessNeeded = false;
-        } else if (score >= yellow)
-        {
-            hasGreenScore = false;
-            isManualProcessNeeded = true;
-        } else
-        {
-            hasGreenScore = false;
-            isManualProcessNeeded = false;
-        }
-        ScoreFinished(score);
+        score = s;
+       
     }
     
-    function getScore() constant returns (uint score)
+    function getScore() constant returns (uint s)
     {
         return score;
     }
     
+    function getSSN() constant returns (string s)
+    {
+        return ssn;
+    }
+
+
      /**********
      Standard kill() function to recover funds 
      **********/

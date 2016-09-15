@@ -1,25 +1,18 @@
 'use strict';
 
-var contracts = require('eris-contracts');
+var erisC = require('eris-contracts');
 var fs = require('fs');
 var http = require('http');
 var url = require('url');
-var address = require('./epm.json').contract;
-var abi = JSON.parse(fs.readFileSync('./abi/' + address, 'utf8'));
-var accounts = require('./accounts.json');
-var chainUrl;
-var manager;
-var contract;
+
+var erisdbURL = "http://localhost:1337/rpc";
+var contractData = require('./epm.json');
+var idisContractAddress = contractData["contract"];
+var idisAbi = JSON.parse(fs.readFileSync("./abi/" + idisContractAddress));
+var accountData = require('./accounts.json');
+var contractsManager = erisC.newContractManagerDev(erisdbURL, accountData.simplechain_full_000);
+var idisContract = contractsManager.newContractFactory(idisAbi).at(idisContractAddress);
 var server;
-
-chainUrl = 'http://localhost:1337/rpc';
-
-// Instantiate the contract object manager using the chain URL and the account
-// data.
-manager = contracts.newContractManagerDev(chainUrl,accounts.simplechain_full_000);
-
-// Instantiate the contract object using the ABI and the address.
-contract = manager.newContractFactory(abi).at(address);
 
 // Create an HTTP server.
 server = http.createServer(function (request, response) {
@@ -37,12 +30,9 @@ server = http.createServer(function (request, response) {
       var parts = url.parse(request.url, true);
       var query = parts.query;
 
-
-
-
       if ( query.field && query.field == 'ssn' ) {
         console.log("Received request to get ssn.");
-        contract.getSSN(function (error, result) {
+        idisContract.getSSN(function (error, result) {
            if (error) {
             response.statusCode = 500;
             console.error(error);
@@ -59,7 +49,7 @@ server = http.createServer(function (request, response) {
       else {
         console.log("Received request to get score.");
         // Get the value from the contract and return it to the HTTP client.
-        contract.getScore(function (error, result) {
+        idisContract.getScore(function (error, result) {
           if (error) {
             response.statusCode = 500;
             console.error(error);
@@ -88,23 +78,23 @@ server = http.createServer(function (request, response) {
       request.on('end', function () {
         value = JSON.parse(body);
         if ( value.score ) {
-          console.log("Received request to set score to " + value.score + '.');
-
-          // Set the value in the contract.
-          contract.setScore(parseInt(value.score), function (error) {
-            response.statusCode = error ? 500 : 200;
-            response.end();
-          })
+          response.statusCode = setScore(value.score) ? 500 : 200;
+        }
+        if ( response.statusCode === 500 ) {
+          response.end();
+          break;
         }
         if ( value.ssn && value.firstname && value.lastname ) {
-          console.log("Received request to set personalia: " + value.ssn + ", " + value.firstname + ", " + value.lastname);
-
-          // Set the value in the contract.
-          contract.setPersonalia(value.ssn, value.firstname, value.lastname, function (error) {
-            response.statusCode = error ? 500 : 200;
-            response.end();
-          })
+          response.statusCode = setPersonalia(value.ssn, value.firstname, value.lastname) ? 500 : 200;
         }
+        if ( response.statusCode === 500 ) {
+          response.end();
+          break;
+        }
+        if ( value.amount && value.maturity && value.interest ) {
+          response.statusCode = setLoan(value.amount, value.maturity, value.interest) ? 500 : 200;
+        }
+        response.end();
       });
 
       break;
@@ -114,6 +104,31 @@ server = http.createServer(function (request, response) {
       response.end();
   }
 });
+
+function setScore ( score ) {
+  console.log("Received request to set score to " + score + '.');
+  // Set the value in the contract.
+  idisContract.setScore(score, function (error) {
+    return error;
+  })
+}
+
+function setPersonalia ( ssn, firstName, lastName ) {
+  console.log("Received request to set personalia: " + ssn + ", " + firstName + ", " + lastName);
+  // Set the value in the contract.
+  idisContract.setPersonalia(ssn, firstName, lastName, function (error) {
+    return error;
+  });
+}
+
+function setLoan ( amount, maturity, interest ) {
+  console.log("Received request to set loan: " + amount + ", " + maturity + ", " + interest);
+  // Set the value in the contract.
+  idisContract.setLoan(amount, maturity, interest, function (error) {
+    return error;
+  });
+}
+
 
 // Tell the server to listen to incoming requests on the port specified in the
 // environment.
