@@ -61,19 +61,19 @@ contract LoanApplication      // The contract definition. A constructor of the s
     {
         score = s;
         if(score >= green)
--        {
--            hasGreenScore = true;
--            isManualProcessNeeded = false;
--        } else if (score >= yellow)
--        {
--            hasGreenScore = false;
--            isManualProcessNeeded = true;
--        } else
--        {
--            hasGreenScore = false;
--            isManualProcessNeeded = false;
--        }
--        ScoreFinished(score);       
+        {
+            hasGreenScore = true;
+            isManualProcessNeeded = false;
+        }else if (score >= yellow)
+        {
+            hasGreenScore = false;
+            isManualProcessNeeded = true;
+        } else
+        {
+            hasGreenScore = false;
+            isManualProcessNeeded = false;
+        }
+        ScoreFinished(score);       
     }
     
     function getScore() constant returns (uint s)
