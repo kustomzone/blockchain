@@ -29,7 +29,7 @@ contract LoanApplication      // The contract definition. A constructor of the s
     uint yellow = 50;
     
     event GetCreditScore(string ssn);
-    event ScoreFinished(uint score);
+    event ScoreFinished(uint score, bool hasGreenScore, bool isManualProcessNeeded);
     
     function LoanApplication() public   // The constructor. 
     {
@@ -73,7 +73,7 @@ contract LoanApplication      // The contract definition. A constructor of the s
             hasGreenScore = false;
             isManualProcessNeeded = false;
         }
-        ScoreFinished(score);       
+        ScoreFinished(score, hasGreenScore, isManualProcessNeeded);       
     }
     
     function getScore() constant returns (uint s)

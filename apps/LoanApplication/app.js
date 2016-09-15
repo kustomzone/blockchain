@@ -14,6 +14,26 @@ var contractsManager = erisC.newContractManagerDev(erisdbURL, accountData.simple
 var idisContract = contractsManager.newContractFactory(idisAbi).at(idisContractAddress);
 var server;
 
+// Event subscription functions
+idisContract.ScoreFinished(startCallback, eventCallback);
+idisContract.GetCreditScore(startCallback, eventCallback);
+function startCallback ( error, eventSub ) { // This function is run for every event subscription when application starts
+  // If this function is ommited, only the first eventCallback will fire
+  //console.log('Start callback: ' + eventSub.getEventId());
+}
+function eventCallback ( error, event ) { // This function is run when event is triggered
+  console.log('Event callback: ' + event.event);
+  if ( event.event == 'GetCreditScore' ) {
+    console.log('Getting credit score for ssn: ' + event.args.ssn);
+    // TODO: get credit score
+    var score = 78;
+    setScore(78);
+  } else if ( event.event == 'ScoreFinished' ) {
+    // TODO: send event to front-end
+    console.log('Score: ' + event.args.score + ', Has green score: ' + event.args.hasGreenScore + ', Manual proccessing needed: ' + event.args.isManualProcessNeeded);
+  }
+}
+
 // Create an HTTP server.
 server = http.createServer(function (request, response) {
   var body;
@@ -82,14 +102,12 @@ server = http.createServer(function (request, response) {
         }
         if ( response.statusCode === 500 ) {
           response.end();
-          break;
         }
         if ( value.ssn && value.firstname && value.lastname ) {
           response.statusCode = setPersonalia(value.ssn, value.firstname, value.lastname) ? 500 : 200;
         }
         if ( response.statusCode === 500 ) {
           response.end();
-          break;
         }
         if ( value.amount && value.maturity && value.interest ) {
           response.statusCode = setLoan(value.amount, value.maturity, value.interest) ? 500 : 200;
@@ -128,7 +146,6 @@ function setLoan ( amount, maturity, interest ) {
     return error;
   });
 }
-
 
 // Tell the server to listen to incoming requests on the port specified in the
 // environment.
