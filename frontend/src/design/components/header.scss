@@ -1,11 +1,13 @@
+@import "../variables/colors";
+
 header {
   // background-color: #90caf9;
   // padding: 0.5rem;
   // border-bottom: 1px solid #0d47a1;
-  border-bottom: 1px solid #06AFEF;
+  border-bottom: 1px solid $main-color;
   .topbar {
     font-size: 1.5rem;
-    background-color: #00395d;
+    background-color: $main-color-dark;
     color: #fff;
     text-align: right;
     padding: 0.4rem 1rem 0.4rem 0;
@@ -21,7 +23,7 @@ header {
     margin-bottom: 1rem;
     a {
       text-decoration: none;
-      color: #06AFEF;
+      color: $main-color;
       font-weight: lighter;
       font-size: 4rem;
       text-transform: none;
@@ -55,9 +57,9 @@ header {
         margin: 0 1rem;
         text-decoration: none;
         font-size: 1.5rem;
-        color: #06AFEF;
+        color: $main-color;
         &:hover {
-          background-color: #06AFEF;
+          background-color: $main-color;
           border-radius: 5px;
           color: #fff;
         }

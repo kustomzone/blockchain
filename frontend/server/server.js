@@ -8,6 +8,13 @@ const app = express();
 app.use(serveStatic('../static', {'index': ['index.html']}));
 
 // Start server
-const server = app.listen(8080, function() {
+const server = app.listen(8082, function() {
     console.log('Listening on port %d', server.address().port);
 });
+
+// var io = require('socket.io').listen(server);
+//
+// io.on('connection', function (socket) {
+//   console.log("connected");
+//   socket.emit("event", {event: "FooEvent", message: "A FooEvent was triggered"});
+// });

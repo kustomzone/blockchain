@@ -13,8 +13,11 @@
     border-radius: 1rem;
     font-size: 2rem;
     margin-top: 1rem;
+    transition: color 0.2s ease-in-out;
     &:hover {
       cursor: pointer;
+      border-color: $main-color-dark;
+      color: $main-color-dark;
     }
   }
 }
@@ -22,6 +25,7 @@
 .userform {
   width: 50%;
   margin-left: 25%;
+  color: $main-color-dark;
   label {
     display: block;
     width: 100%;
@@ -34,7 +38,8 @@
     display: block;
     width: 100%;
     font-size: 2.5rem;
+    color: $main-color-dark;
     border:0;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid $main-color-dark;
   }
 }

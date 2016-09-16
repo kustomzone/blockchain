@@ -34,7 +34,7 @@ export default class User extends React.Component {
   }
 
   logUser(user) {
-    console.log("ID: " + user.id + ", name: " + user.first_name + " " + user.last_name + ", fnr: " + user.fnr);
+    console.log("ID: " + user.id + ", name: " + user.first_name + " " + user.last_name + ", SSN: " + user.fnr);
   }
 
   render() {

@@ -9,7 +9,18 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import Header from './components/header/header';
 import Frontpage from './components/frontpage/frontpage';
 import User from './components/user/user';
+import Score from './components/score/score';
 import Footer from './components/footer/footer';
+
+// var socket = require('socket.io-client')('http://localhost:8082');
+//
+// socket.on('event', function (data) {
+//   if(data.event) {
+//       console.log(data.event + ": " + data.message);
+//   } else {
+//       console.log("There is a problem:", data);
+//   }
+// });
 
 class App extends React.Component {
   render() {
@@ -19,7 +30,6 @@ class App extends React.Component {
         <div className="main">
           {this.props.children}
         </div>
-        <Footer />
       </div>
     )
   }
@@ -31,6 +41,7 @@ ReactDOM.render((
 		<Route path="/" component={App}>
       <IndexRoute component={Frontpage} />
       <Route path="user" component={User} />
+      <Route path="score" component={Score} />
     </Route>
   </Router>
 ), document.getElementById('container'));
