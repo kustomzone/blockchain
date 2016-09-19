@@ -17,8 +17,6 @@ var server;
 var jsonMockUrl = process.env.IDI_MOCK_HOST || 'localhost';
 var jsonMockPort = process.env.IDI_MOCK_PORT || '8081';
 
-var io = require('socket.io').listen(server);
-
 // Event subscription functions
 idisContract.ScoreFinished(startCallback, eventCallback);
 idisContract.GetCreditScore(startCallback, eventCallback);
@@ -126,6 +124,9 @@ server = http.createServer(function (request, response) {
       response.end();
   }
 });
+
+
+var io = require('socket.io').listen(server);
 
 io.on('connection', function (socket) {
   console.log("Client connected");
