@@ -2,6 +2,7 @@
     A loan application solidity contract.
     The following creates a loan process, and processes multiple steps in a loan application.
 */
+pragma solidity ^0.4.1;
 
 contract LoanApplication      // The contract definition. A constructor of the same name will be automatically called on contract creation. {
 {
