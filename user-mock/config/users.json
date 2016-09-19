@@ -1,16 +1,16 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": 12345612345,
       "first_name": "Ola",
       "last_name": "Normann",
-      "fnr": "12345612345"
+      "credit_score": 91
     },
     {
-      "id": 2,
+      "id": 65432154321,
       "first_name": "Kari",
       "last_name": "Normann",
-      "fnr": "65432154321"
+      "credit_score": "71"
     }
   ]
 }

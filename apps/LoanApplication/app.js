@@ -14,6 +14,9 @@ var contractsManager = erisC.newContractManagerDev(erisdbURL, accountData.simple
 var idisContract = contractsManager.newContractFactory(idisAbi).at(idisContractAddress);
 var server;
 
+var jsonMockUrl = process.env.IDI_MOCK_HOST || 'localhost';
+var jsonMockPort = process.env.IDI_MOCK_PORT || '8081';
+
 // Event subscription functions
 idisContract.ScoreFinished(startCallback, eventCallback);
 idisContract.GetCreditScore(startCallback, eventCallback);
@@ -25,9 +28,7 @@ function eventCallback ( error, event ) { // This function is run when event is 
   console.log('Event callback: ' + event.event);
   if ( event.event == 'GetCreditScore' ) {
     console.log('Getting credit score for ssn: ' + event.args.ssn);
-    // TODO: get credit score
-    var score = 78;
-    setScore(78);
+    getAndSetCreditScore(event.args.ssn);
   } else if ( event.event == 'ScoreFinished' ) {
     // TODO: send event to front-end
     console.log('Score: ' + event.args.score + ', Has green score: ' + event.args.hasGreenScore + ', Manual proccessing needed: ' + event.args.isManualProcessNeeded);
@@ -145,6 +146,29 @@ function setLoan ( amount, maturity, interest ) {
   idisContract.setLoan(amount, maturity, interest, function (error) {
     return error;
   });
+}
+
+function getAndSetCreditScore ( ssn ) {
+  var options = {
+    host: jsonMockUrl,
+    port: jsonMockPort,
+    path: '/users/' + ssn,
+    method: 'GET'
+  };
+  http.request(options, function (res) {
+    var body = '';
+    //console.log('STATUS: ' + res.statusCode);
+    //console.log('HEADERS: ' + JSON.stringify(res.headers));
+    res.setEncoding('utf8');
+    res.on('data', function (chunk) {
+      body += chunk;
+    });
+    res.on('end', function () {
+      //console.log('Body:' + body);
+      var value = JSON.parse(body);
+      setScore(value.credit_score);
+    });
+  }).end();
 }
 
 // Tell the server to listen to incoming requests on the port specified in the
