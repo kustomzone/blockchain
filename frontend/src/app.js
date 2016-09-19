@@ -12,15 +12,15 @@ import User from './components/user/user';
 import Score from './components/score/score';
 import Footer from './components/footer/footer';
 
-// var socket = require('socket.io-client')('http://localhost:8082');
-//
-// socket.on('event', function (data) {
-//   if(data.event) {
-//       console.log(data.event + ": " + data.message);
-//   } else {
-//       console.log("There is a problem:", data);
-//   }
-// });
+var socket = require('socket.io-client')('http://40.68.251.181:1338');
+
+socket.on('event', function (data) {
+  if(data.event) {
+      console.log(data.event + ": " + data.message);
+  } else {
+      console.log("There is a problem:", data);
+  }
+});
 
 class App extends React.Component {
   render() {

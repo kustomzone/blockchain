@@ -127,6 +127,7 @@ server = http.createServer(function (request, response) {
 
 
 var io = require('socket.io').listen(server);
+io.set('origins', '*:*');
 
 io.on('connection', function (socket) {
   console.log("Client connected");
