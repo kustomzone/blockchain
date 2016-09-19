@@ -12,7 +12,22 @@ export default class UserForm extends React.Component {
   }
 
   submitPerson() {
+    var user = this.props.user;
+    var userData = {
+      firstname: user.first_name,
+      lastname: user.last_name,
+      ssn: user.fnr
+    };
     console.log("Submitting user-data");
+    fetch("http://40.68.251.181:1338", {
+        	method: 'POST',
+        	mode: 'no-cors',
+        	redirect: 'follow',
+        	headers: new Headers({
+        		'Content-Type': 'application/json'
+        	}),
+          body: JSON.stringify(userData)
+    });
   }
 
   render() {
@@ -26,7 +41,7 @@ export default class UserForm extends React.Component {
         <label>SSN</label>
         <input type="text" value={this.createSSN(user.fnr)} readOnly/>
         <div className="next-button">
-          <Link to={'score'} onClick={this.submitPerson} className="button next">Next</Link>
+          <Link to={'loan'} onClick={this.submitPerson.bind(this)} className="button next">Next</Link>
         </div>
       </div>
     ) : null;
