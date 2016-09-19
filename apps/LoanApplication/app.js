@@ -17,6 +17,8 @@ var server;
 var jsonMockUrl = process.env.IDI_MOCK_HOST || 'localhost';
 var jsonMockPort = process.env.IDI_MOCK_PORT || '8081';
 
+var io = require('socket.io').listen(server);
+
 // Event subscription functions
 idisContract.ScoreFinished(startCallback, eventCallback);
 idisContract.GetCreditScore(startCallback, eventCallback);
@@ -28,9 +30,10 @@ function eventCallback ( error, event ) { // This function is run when event is 
   console.log('Event callback: ' + event.event);
   if ( event.event == 'GetCreditScore' ) {
     console.log('Getting credit score for ssn: ' + event.args.ssn);
+    io.emit("event", {event: event.event, message: "Getting score for " + event.args.ssn});
     getAndSetCreditScore(event.args.ssn);
   } else if ( event.event == 'ScoreFinished' ) {
-    // TODO: send event to front-end
+    io.emit("event", {event: event.event, message: "Score finished: " + event.args.score, score: event.args.score, manual: event.args.isManualProcessNeeded});
     console.log('Score: ' + event.args.score + ', Has green score: ' + event.args.hasGreenScore + ', Manual proccessing needed: ' + event.args.isManualProcessNeeded);
   }
 }
@@ -64,7 +67,7 @@ server = http.createServer(function (request, response) {
           }
 
           response.end('\n');
-          
+
         });
       }
       else {
@@ -82,7 +85,7 @@ server = http.createServer(function (request, response) {
 
           response.end('\n');
         });
-       
+
       }
 
 
@@ -122,6 +125,10 @@ server = http.createServer(function (request, response) {
       response.statusCode = 501;
       response.end();
   }
+});
+
+io.on('connection', function (socket) {
+  console.log("Client connected");
 });
 
 function setScore ( score ) {
