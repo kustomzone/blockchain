@@ -13,5 +13,6 @@ RUN apt-get update
 RUN apt-get -y install eris
 
 ENV ERIS_PULL_APPROVE true
+ENV PATH /scripts:$PATH
 
-ADD ./scripts/init.sh init
+ADD ./scripts /scripts

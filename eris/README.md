@@ -2,13 +2,9 @@ Eris in docker
 ==============
 Basic commands
 --------------
-To start image:
+Start image in daemon mode:
 ```
-docker-compose up
-```
-To start image in daemon mode:
-```
-docker-compose -d up
+docker-compose up -d
 ```
 To connect to running daemon container:
 ```

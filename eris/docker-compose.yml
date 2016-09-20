@@ -5,6 +5,5 @@ services:
     container_name: eris
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - <data_folder>:/root/.eris
-    stdin_open: true
+      - ~/eris/test:/root/.eris
     tty: true

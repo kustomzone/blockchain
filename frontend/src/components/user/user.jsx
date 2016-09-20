@@ -20,7 +20,7 @@ export default class User extends React.Component {
   componentDidMount() {
     console.log("Fetching users from /users");
     var denne = this;
-    fetch('http://localhost:8081/users').then(function(response) {
+    fetch('http://40.68.251.181/:8081/users').then(function(response) {
     	return response.json();
     }).then(function(j) {
       setTimeout(function() {
