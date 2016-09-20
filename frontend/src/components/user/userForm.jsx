@@ -16,7 +16,7 @@ export default class UserForm extends React.Component {
     var userData = {
       firstname: user.first_name,
       lastname: user.last_name,
-      ssn: user.id
+      ssn: "" +user.id
     };
     console.log("Submitting user-data");
     fetch("http://40.68.251.181:1338", {
