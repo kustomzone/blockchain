@@ -4,13 +4,15 @@
       "id": 12345612345,
       "first_name": "Ola",
       "last_name": "Normann",
-      "credit_score": 91
+      "credit_score": 91,
+      "ssn": 12345612345
     },
     {
       "id": 65432154321,
       "first_name": "Kari",
       "last_name": "Normann",
-      "credit_score": "71"
+      "credit_score": "71",
+      "ssn": 65432154321
     }
   ]
 }
