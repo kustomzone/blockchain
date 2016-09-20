@@ -39,7 +39,7 @@ export default class UserForm extends React.Component {
         <label>Last name</label>
         <input type="text" value={user.last_name} readOnly/>
         <label>SSN</label>
-        <input type="text" value={this.createSSN(user.id)} readOnly/>
+        <input type="text" value={this.createSSN("" + user.id)} readOnly/>
         <div className="next-button">
           <Link to={'loan'} onClick={this.submitPerson.bind(this)} className="button next">Next</Link>
         </div>
